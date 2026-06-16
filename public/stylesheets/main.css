@@ -1,0 +1,50 @@
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+#toast-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  max-width: 320px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.toast--error {
+  background: #df691a;
+  color: #fff;
+}
+
+.field-error {
+  font-size: 14px;
+  color: #df691a;
+  margin-top: 4px;
+  display: block;
+}
+
+.input--error {
+  border-color: #df691a;
+}

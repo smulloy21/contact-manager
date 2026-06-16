@@ -1,0 +1,37 @@
+[
+  {
+    "id": 3,
+    "full_name": "Pete Hanson",
+    "email": "ph@example.com",
+    "phone_number": "54321098736",
+    "tags": "friend,work"
+  },
+  {
+    "full_name": "Diana Prince",
+    "phone_number": "1234567899",
+    "email": "dprince@gmail.com",
+    "tags": "superhero,friend",
+    "id": 4
+  },
+  {
+    "full_name": "Peter Parker",
+    "phone_number": "3994920023",
+    "email": "pparker@gmail.com",
+    "tags": "superhero,photographer,reporter",
+    "id": 5
+  },
+  {
+    "full_name": "Bruce Wayne",
+    "phone_number": "2944324482",
+    "email": "bwayne@wayneenterprises.net",
+    "tags": "hero,business,friend",
+    "id": 6
+  },
+  {
+    "full_name": "Tony Stark",
+    "phone_number": "3882043249",
+    "email": "tstark@gmail.com",
+    "tags": "superhero,scientist,business",
+    "id": 7
+  }
+]
