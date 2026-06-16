@@ -226,13 +226,13 @@ class ContactsApp {
     phone.classList.add('card-text');
     phone.textContent = contact.phone_number;
 
-    return body.append(
+    body.append(
       name,
       email,
       phone,
       this.buildTagLinks(contact.tags),
-      this.buildButtons()
-    );
+      this.buildButtons());
+    return body;
   }
 
   buildTagLinks(tags) {
