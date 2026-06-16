@@ -96,19 +96,14 @@ class ContactsApp {
   }
 
   async handleEdit(contactId) {
-    try {
-      let response = await this.apiFetch(`/api/contacts/${contactId}`);
-      let contact = await response.json();
-      this.editingId = contactId;
-      this.contactForm.querySelector('[name="full_name"]').value = contact.full_name;
-      this.contactForm.querySelector('[name="email"]').value = contact.email;
-      this.contactForm.querySelector('[name="phone_number"]').value = contact.phone_number;
-      this.contactForm.querySelector('[name="tags"]').value = contact.tags || '';
-      this.openForm();
-    } catch (err) {
-      this.showToast('Could not load contact. Please try again.');
-      console.error(err);
-    }
+    let contact = this.allContacts.find(c => c.id === contactId);
+    if (!contact) return this.showToast('Could not find contact.');
+    this.editingId = contactId;
+    this.contactForm.querySelector('[name="full_name"]').value = contact.full_name;
+    this.contactForm.querySelector('[name="email"]').value = contact.email;
+    this.contactForm.querySelector('[name="phone_number"]').value = contact.phone_number;
+    this.contactForm.querySelector('[name="tags"]').value = contact.tags || '';
+    this.openForm();
   }
 
   async handleContactSubmit(event) {
