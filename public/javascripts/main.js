@@ -95,15 +95,18 @@ class ContactsApp {
     }
   }
 
-  async handleEdit(contactId) {
+  handleEdit(contactId) {
     let contact = this.allContacts.find(c => c.id === contactId);
-    if (!contact) return this.showToast('Could not find contact.');
-    this.editingId = contactId;
-    this.contactForm.querySelector('[name="full_name"]').value = contact.full_name;
-    this.contactForm.querySelector('[name="email"]').value = contact.email;
-    this.contactForm.querySelector('[name="phone_number"]').value = contact.phone_number;
-    this.contactForm.querySelector('[name="tags"]').value = contact.tags || '';
-    this.openForm();
+    if (!contact) {
+      this.showToast('Could not find contact.');
+    } else {
+      this.editingId = contactId;
+      this.contactForm.querySelector('[name="full_name"]').value = contact.full_name;
+      this.contactForm.querySelector('[name="email"]').value = contact.email;
+      this.contactForm.querySelector('[name="phone_number"]').value = contact.phone_number;
+      this.contactForm.querySelector('[name="tags"]').value = contact.tags || '';
+      this.openForm();
+    }
   }
 
   async handleContactSubmit(event) {
