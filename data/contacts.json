@@ -33,5 +33,12 @@
     "email": "tstark@gmail.com",
     "tags": "superhero,scientist,business",
     "id": 7
+  },
+  {
+    "full_name": "Bruce Banner",
+    "phone_number": "3772847736",
+    "email": "bbanner@gmail.com",
+    "tags": "scientist,superhero,friend",
+    "id": 8
   }
 ]

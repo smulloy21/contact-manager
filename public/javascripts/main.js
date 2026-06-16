@@ -204,46 +204,74 @@ class ContactsApp {
     let card = document.createElement('div');
     card.classList.add('card', 'w-25');
     card.dataset.id = contact.id;
-    card.innerHTML = this.contactTemplate(contact);
+
+    let body = this.createCardBody(contact);
+    card.append(body);
     this.contactsDiv.append(card);
   }
 
-  contactTemplate(contact) {
-    return `
-      <div class="card-body">
-        <h4 class="card-title">${contact.full_name}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">${contact.email}</h6>
-        <p class="card-text">${contact.phone_number}</p>
-        ${this.tagLinks(contact.tags)}
-        <br>
-        ${this.editAndDeleteButtons()}
-      </div>`;
+  createCardBody(contact) {
+    let body = document.createElement('div');
+    body.classList.add('card-body');
+
+    let name = document.createElement('h4');
+    name.classList.add('card-title');
+    name.textContent = contact.full_name;
+
+    let email = document.createElement('h6');
+    email.classList.add('card-subtitle', 'mb-2', 'text-muted');
+    email.textContent = contact.email;
+
+    let phone = document.createElement('p');
+    phone.classList.add('card-text');
+    phone.textContent = contact.phone_number;
+
+    return body.append(
+      name,
+      email,
+      phone,
+      this.buildTagLinks(contact.tags),
+      this.buildButtons()
+    );
   }
 
-  tagLinks(tags) {
-    if (!tags) return '';
-    return tags.split(',')
-      .map(tag => tag.trim())
-      .map(tag => `<span class="tag ${tag === this.activeTag ? 'active' : ''}" data-tag="${tag}">${tag}</span>`)
-      .join(' • ');
+  buildTagLinks(tags) {
+    let container = document.createElement('div');
+    if (!tags) return container;
+
+    tags.split(',').forEach((tag, index, arr) => {
+      tag = tag.trim();
+      let span = document.createElement('span');
+      span.classList.add('tag');
+      if (tag === this.activeTag) span.classList.add('active');
+      span.dataset.tag = tag;
+      span.textContent = tag;
+      container.append(span);
+      if (index < arr.length - 1) container.append(document.createTextNode(' • '));
+    });
+
+    return container;
   }
 
-  editAndDeleteButtons() {
-    return `
-      <button type="button" class="my-3 btn btn-primary" data-action="edit" aria-label="Edit contact">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-        </svg>
-      </button>
-      <button type="button" class="my-3 btn btn-danger" data-action="delete" aria-label="Delete contact">
-        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 6h18" />
-          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-          <line x1="10" y1="11" x2="10" y2="17" />
-          <line x1="14" y1="11" x2="14" y2="17" />
-        </svg>
-      </button>`;
+  buildButtons() {
+    let wrapper = document.createElement('div');
+
+    let editBtn = document.createElement('button');
+    editBtn.type = 'button';
+    editBtn.classList.add('my-3', 'mx-1', 'btn', 'btn-primary');
+    editBtn.dataset.action = 'edit';
+    editBtn.setAttribute('aria-label', 'Edit contact');
+    editBtn.innerHTML = `<svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`;
+
+    let deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
+    deleteBtn.classList.add('my-3', 'mx-1', 'btn', 'btn-danger');
+    deleteBtn.dataset.action = 'delete';
+    deleteBtn.setAttribute('aria-label', 'Delete contact');
+    deleteBtn.innerHTML = `<svg xmlns="http://w3.org" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg>`;
+
+    wrapper.append(editBtn, deleteBtn);
+    return wrapper;
   }
 
   handleContactsClick(event) {
