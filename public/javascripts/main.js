@@ -128,6 +128,8 @@ class ContactsApp {
   closeForm() {
     this.contactForm.reset();
     this.editingId = null;
+    this.contactForm.querySelectorAll('.field-error').forEach(el => el.classList.add('hidden'));
+    this.contactForm.querySelectorAll('.input--error').forEach(el => el.classList.remove('input--error'));
     this.contactForm.classList.add('hidden');
   }
 
