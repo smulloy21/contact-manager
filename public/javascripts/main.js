@@ -85,13 +85,16 @@ class ContactsApp {
   }
 
   async handleDelete(contactId) {
-    try {
-      await this.apiFetch(`/api/contacts/${contactId}`, { method: 'DELETE' });
-      this.allContacts = this.allContacts.filter(c => c.id !== contactId);
-      this.applyFilters();
-    } catch (err) {
-      this.showToast('Could not delete contact. Please try again.');
-      console.error(err);
+    const userConfirmed = confirm('Do you want to delete this contact?');
+    if (userConfirmed) {
+      try {
+        await this.apiFetch(`/api/contacts/${contactId}`, { method: 'DELETE' });
+        this.allContacts = this.allContacts.filter(c => c.id !== contactId);
+        this.applyFilters();
+      } catch (err) {
+        this.showToast('Could not delete contact. Please try again.');
+        console.error(err);
+      }
     }
   }
 
