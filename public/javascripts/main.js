@@ -200,6 +200,9 @@ class ContactsApp {
 
   renderContacts(contacts) {
     this.contactsDiv.innerHTML = '';
+    if (contacts.length === 0) {
+      this.contactsDiv.innerHTML = `<p>No contacts found</p>`;
+    }
     contacts.forEach(contact => this.createContact(contact));
   }
 
